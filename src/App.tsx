@@ -3,115 +3,129 @@ function App() {
   return (
     <main dir="rtl" className="min-h-screen bg-background p-8 text-foreground">
       <div className="mx-auto max-w-5xl space-y-10">
-        {/* Header */}
-        <header className="space-y-3">
-          <h1 className="text-3xl font-bold text-primary">Ramadan Companion</h1>
+        <header>
+          <h1 className="text-3xl font-extrabold text-gold-400">
+            نظام التصميم — Design System
+          </h1>
 
-          <p className="text-muted-foreground">
-            صفحة اختبار نظام التصميم — Design Tokens Preview
-          </p>
+          <p className="mt-2 text-muted-foreground">Ramadan Companion</p>
         </header>
 
-        {/* Brand Colors */}
+        {/* Emerald */}
         <section className="space-y-4">
-          <h2 className="text-xl font-semibold">Brand Colors</h2>
+          <h2 className="text-xl font-bold">Primary — Emerald</h2>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <div className="rounded-lg bg-primary p-6 text-primary-foreground">
-              <p className="font-semibold">Primary / Emerald</p>
-              <p className="mt-2 text-sm">#047857</p>
-            </div>
-
-            <div className="rounded-lg bg-accent p-6 text-accent-foreground">
-              <p className="font-semibold">Accent / Gold</p>
-              <p className="mt-2 text-sm">#D4A64A</p>
-            </div>
-
-            <div className="rounded-lg bg-secondary p-6 text-secondary-foreground">
-              <p className="font-semibold">Secondary</p>
-              <p className="mt-2 text-sm">Secondary surface</p>
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+            <div className="rounded-md bg-primary-950 p-5">950</div>
+            <div className="rounded-md bg-primary-900 p-5">900</div>
+            <div className="rounded-md bg-primary-800 p-5">800</div>
+            <div className="rounded-md bg-primary-700 p-5">700</div>
+            <div className="rounded-md bg-primary-600 p-5">600</div>
+            <div className="rounded-md bg-primary-500 p-5 text-background">
+              500
             </div>
           </div>
         </section>
 
-        {/* Text */}
+        {/* Gold */}
         <section className="space-y-4">
-          <h2 className="text-xl font-semibold">Typography</h2>
+          <h2 className="text-xl font-bold">Accent — Gold</h2>
 
-          <div className="rounded-xl border bg-card p-6 shadow-card">
-            <h1 className="text-3xl font-bold">رمضان كريم 🌙</h1>
-
-            <h2 className="mt-4 text-xl font-semibold">أهلاً بك في رمضان</h2>
-
-            <p className="mt-3 text-muted-foreground">
-              نسعى لتقديم تجربة بسيطة تساعدك على تنظيم عباداتك وأعمالك خلال
-              الشهر الفضيل.
-            </p>
-
-            <p className="mt-4 text-sm" dir="ltr">
-              Ramadan Companion — Your companion throughout Ramadan.
-            </p>
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-5">
+            <div className="rounded-md bg-gold-900 p-5">900</div>
+            <div className="rounded-md bg-gold-700 p-5">700</div>
+            <div className="rounded-md bg-gold-500 p-5 text-background">
+              500
+            </div>
+            <div className="rounded-md bg-gold-400 p-5 text-background">
+              400
+            </div>
+            <div className="rounded-md bg-gold-300 p-5 text-background">
+              300
+            </div>
           </div>
         </section>
 
-        {/* Cards */}
+        {/* Surfaces */}
         <section className="space-y-4">
-          <h2 className="text-xl font-semibold">Cards & Radius & Shadows</h2>
+          <h2 className="text-xl font-bold">Surfaces</h2>
 
           <div className="grid gap-4 sm:grid-cols-2">
-            <div className="rounded-lg border bg-card p-6 shadow-card">
-              <h3 className="font-semibold">Card - Small Radius</h3>
-              <p className="mt-2 text-muted-foreground">
-                Testing the card background, border and shadow.
-              </p>
+            <div className="rounded-lg border border-border-subtle bg-card p-6 shadow-card">
+              <h3 className="font-bold">Card</h3>
+              <p className="mt-2 text-muted-foreground">Surface Card</p>
             </div>
 
-            <div className="rounded-xl border bg-card p-6 shadow-card-hover">
-              <h3 className="font-semibold">Card - Larger Radius</h3>
-              <p className="mt-2 text-muted-foreground">
-                Testing the hover shadow token.
-              </p>
+            <div className="rounded-lg border border-border-strong bg-secondary p-6">
+              <h3 className="font-bold">Raised Surface</h3>
+              <p className="mt-2 text-muted-foreground">Secondary Surface</p>
             </div>
           </div>
         </section>
 
-        {/* Buttons */}
+        {/* Typography */}
         <section className="space-y-4">
-          <h2 className="text-xl font-semibold">Buttons</h2>
+          <h2 className="text-xl font-bold">Typography</h2>
 
-          <div className="flex flex-wrap gap-3">
-            <button className="rounded-lg bg-primary px-5 py-3 font-medium text-primary-foreground">
-              Primary Button
-            </button>
+          <div className="space-y-4 rounded-xl border border-border-subtle bg-card p-6">
+            <h1 className="text-4xl font-extrabold">Display — رمضان كريم</h1>
 
-            <button className="rounded-lg bg-accent px-5 py-3 font-medium text-accent-foreground">
-              Accent Button
-            </button>
+            <h2 className="text-2xl font-bold">
+              Heading — رفيق رمضان لتنظيم العبادات
+            </h2>
 
-            <button className="rounded-lg border bg-background px-5 py-3 font-medium">
-              Outline Button
-            </button>
+            <h3 className="text-xl font-bold">Title — أهلاً بك في رمضان</h3>
 
-            <button className="rounded-lg bg-destructive px-5 py-3 font-medium text-destructive-foreground">
-              Destructive Button
-            </button>
-          </div>
-          <Button>shadcn Primary</Button>
-          <Button variant="outline">shadcn Outline</Button>
-          <Button variant="secondary">shadcn Secondary</Button>
-        </section>
+            <p>
+              Body — نسعى لتقديم تجربة بسيطة تساعدك على تنظيم عباداتك وأعمالك.
+            </p>
 
-        {/* Muted */}
-        <section className="space-y-4">
-          <h2 className="text-xl font-semibold">Muted & Background</h2>
+            <p className="text-muted-foreground">
+              Muted — نص ثانوي باستخدام لون muted.
+            </p>
 
-          <div className="rounded-xl bg-muted p-6">
-            <p className="font-medium">Muted Background</p>
-
-            <p className="mt-2 text-muted-foreground">
-              Secondary text using the muted token.
+            <p className="text-sm" dir="ltr">
+              English — Ramadan Companion
             </p>
           </div>
+        </section>
+
+        {/* States */}
+        <section className="space-y-4">
+          <h2 className="text-xl font-bold">State Colors</h2>
+
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+            <div className="rounded-md bg-info-700 p-5">Info</div>
+            <div className="rounded-md bg-danger-500 p-5">Danger</div>
+            <div className="rounded-md bg-warning-500 p-5 text-background">
+              Warning
+            </div>
+            <div className="rounded-md bg-success-500 p-5 text-background">
+              Success
+            </div>
+          </div>
+        </section>
+
+        {/* Radius & Shadows */}
+        <section className="space-y-4">
+          <h2 className="text-xl font-bold">Radius & Shadows</h2>
+
+          <div className="grid gap-4 sm:grid-cols-3">
+            <div className="rounded-md bg-card p-6 shadow-card">
+              Card Shadow
+            </div>
+
+            <div className="rounded-xl bg-card p-6 shadow-elevation">
+              Elevation Shadow
+            </div>
+
+            <div className="rounded-2xl bg-primary-900 p-6 shadow-glow">
+              Glow Shadow
+            </div>
+          </div>
+          <Button>Primary</Button>
+          <Button variant="outline">Outline</Button>
+          <Button variant="secondary">Secondary</Button>
         </section>
       </div>
     </main>
