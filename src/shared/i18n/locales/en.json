@@ -1,0 +1,61 @@
+{
+  "common": {
+    "appName": "Ramadan Companion",
+    "home": "Home",
+    "settings": "Settings",
+    "language": "Language",
+    "arabic": "Arabic",
+    "english": "English",
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Create Account",
+    "email": "Email",
+    "password": "Password",
+    "welcome": "Welcome Back"
+  },
+  "quran": {
+    "title": "The Holy Quran",
+    "read": "Read Quran",
+    "surah": "Surah",
+    "ayah": "Ayah",
+    "juz": "Juz"
+  },
+  "playground": {
+    "primaryEmerald": "Primary — Emerald",
+    "accentGold": "Accent — Gold",
+    "surfaces": "Surfaces",
+    "card": "Card",
+    "surfaceCard": "Surface Card",
+    "raisedSurface": "Raised Surface",
+    "secondarySurface": "Secondary Surface",
+    "typography": "Typography",
+    "display": "Display",
+    "heading": "Heading",
+    "title": "Title",
+    "body": "Body",
+    "muted": "Muted",
+    "stateColors": "State Colors",
+    "info": "Info",
+    "danger": "Danger",
+    "warning": "Warning",
+    "success": "Success",
+    "radiusShadows": "Radius & Shadows",
+    "cardShadow": "Card Shadow",
+    "elevationShadow": "Elevation Shadow",
+    "glowShadow": "Glow Shadow",
+    "primary": "Primary",
+    "outline": "Outline",
+    "secondary": "Secondary",
+    "appDescription": "Ramadan Companion",
+    "bodyDescription": "We aim to provide a simple experience that helps you organize your worship and daily activities.",
+    "displaySample": "Ramadan Kareem",
+    "headingSample": "Ramadan Companion for Worship Organization",
+    "titleSample": "Welcome to Ramadan",
+    "mutedDescription": "Secondary text using the muted color.",
+    "englishExample": "English Example"
+  }
+}

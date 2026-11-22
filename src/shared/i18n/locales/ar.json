@@ -1,0 +1,61 @@
+{
+  "common": {
+    "appName": "رفيق رمضان",
+    "home": "الرئيسية",
+    "settings": "الإعدادات",
+    "language": "اللغة",
+    "arabic": "العربية",
+    "english": "الإنجليزية",
+    "loading": "جارٍ التحميل...",
+    "save": "حفظ",
+    "cancel": "إلغاء"
+  },
+  "auth": {
+    "login": "تسجيل الدخول",
+    "register": "إنشاء حساب",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "welcome": "مرحباً بعودتك"
+  },
+  "quran": {
+    "title": "القرآن الكريم",
+    "read": "قراءة القرآن",
+    "surah": "السورة",
+    "ayah": "الآية",
+    "juz": "الجزء"
+  },
+  "playground": {
+    "primaryEmerald": "اللون الأساسي — الزمردي",
+    "accentGold": "اللون المميز — الذهبي",
+    "surfaces": "الأسطح",
+    "card": "بطاقة",
+    "surfaceCard": "سطح البطاقة",
+    "raisedSurface": "سطح مرتفع",
+    "secondarySurface": "السطح الثانوي",
+    "typography": "الخطوط",
+    "display": "نص العرض",
+    "heading": "عنوان رئيسي",
+    "title": "عنوان",
+    "body": "النص الأساسي",
+    "muted": "نص ثانوي",
+    "stateColors": "ألوان الحالات",
+    "info": "معلومات",
+    "danger": "خطر",
+    "warning": "تحذير",
+    "success": "نجاح",
+    "radiusShadows": "الحواف والظلال",
+    "cardShadow": "ظل البطاقة",
+    "elevationShadow": "ظل الارتفاع",
+    "glowShadow": "الظل المتوهج",
+    "primary": "أساسي",
+    "outline": "محدد الإطار",
+    "secondary": "ثانوي",
+    "appDescription": "رفيق رمضان",
+    "bodyDescription": "نسعى لتقديم تجربة بسيطة تساعدك على تنظيم عباداتك وأعمالك.",
+    "displaySample": "رمضان كريم",
+    "headingSample": "رفيق رمضان لتنظيم العبادات",
+    "titleSample": "أهلاً بك في رمضان",
+    "mutedDescription": "نص ثانوي باستخدام لون muted.",
+    "englishExample": "مثال باللغة الإنجليزية"
+  }
+}
