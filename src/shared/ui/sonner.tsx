@@ -44,19 +44,19 @@ const Toaster = ({ ...props }: ToasterProps) => {
       toastOptions={{
         classNames: {
           toast:
-            '!bg-[#173D35] !border !border-[#28594E] !rounded-2xl !p-5 !text-[#F5F1E6] !shadow-lg !min-h-[100px] !w-[360px]',
-          title: '!text-[#F5F1E6] !font-semibold !text-base',
-          description: '!text-[#A9C5BA] !text-sm',
+            '!bg-[var(--surface-raised)] !border !border-[var(--border-strong)] !rounded-2xl !p-5 !text-[var(--text-primary)] !shadow-lg !min-h-[100px] !w-[360px]',
+          title: '!text-[var(--text-primary)] !font-semibold !text-base',
+          description: '!text-[var(--text-secondary)] !text-sm',
           closeButton:
-            '!absolute !left-4 !right-auto !top-4 !translate-x-0 !translate-y-0 !bg-transparent !border-0 !text-[#A9C5BA] hover:!text-white',
+            '!absolute !left-4 !right-auto !top-4 !translate-x-0 !translate-y-0 !bg-transparent !border-0 !text-[var(--text-secondary)] hover:!text-[var(--text-primary)]',
           content: '!flex-1 !min-w-0 !text-right !mr-6',
         },
       }}
       style={
         {
-          '--normal-bg': '#173D35',
-          '--normal-text': '#F5F1E6',
-          '--normal-border': '#28594E',
+          '--normal-bg': 'var(--surface-raised)',
+          '--normal-text': 'var(--text-primary)',
+          '--normal-border': 'var(--border-strong)',
         } as React.CSSProperties
       }
       {...props}
