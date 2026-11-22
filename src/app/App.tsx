@@ -1,8 +1,14 @@
 import { Button } from '@/shared/ui/button';
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from '@/shared/components/LanguageSwitcher';
+import { Playground } from './Playground';
+
 function App() {
   const { t } = useTranslation();
+
+  if (window.location.pathname === '/playground') {
+    return <Playground />;
+  }
   return (
     <main className="bg-background text-foreground min-h-screen p-8">
       <div className="mx-auto max-w-5xl space-y-10">
