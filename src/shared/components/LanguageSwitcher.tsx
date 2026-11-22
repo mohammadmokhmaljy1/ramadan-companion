@@ -15,7 +15,7 @@ export function LanguageSwitcher() {
       type="button"
       onClick={() => void i18n.changeLanguage(nextLanguage)}
       aria-label={`${t('common.language')}: ${nextLanguageLabel}`}
-      className="border-border-strong inline-flex items-center justify-center rounded-lg border px-3 py-2 text-sm font-medium text-[var(--text-primary)] hover:bg-[var(--surface-raised)]"
+      className="border-border-strong text-text-primary hover:bg-surface-raised inline-flex items-center justify-center rounded-lg border px-3 py-2 text-sm font-medium"
     >
       {nextLanguageLabel}
     </button>
