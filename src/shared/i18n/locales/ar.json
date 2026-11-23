@@ -24,6 +24,26 @@
     "ayah": "الآية",
     "juz": "الجزء"
   },
+  "navigation": {
+    "home": "الرئيسية",
+    "prayerTimes": "مواقيت الصلاة",
+    "quran": "القرآن الكريم",
+    "worship": "العبادات",
+    "goals": "الأهداف",
+    "reports": "التقارير",
+    "settings": "الإعدادات",
+    "more": "المزيد",
+    "adminDashboard": "لوحة التحكم",
+    "seasons": "المواسم",
+    "duas": "الأدعية",
+    "users": "المستخدمون",
+    "reminders": "التذكيرات"
+  },
+  "notFound": {
+    "title": "الصفحة غير موجودة",
+    "description": "عذرًا، الصفحة التي تبحث عنها غير موجودة.",
+    "backHome": "العودة إلى الرئيسية"
+  },
   "playground": {
     "primaryEmerald": "اللون الأساسي — الزمردي",
     "accentGold": "اللون المميز — الذهبي",

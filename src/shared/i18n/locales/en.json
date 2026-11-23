@@ -24,6 +24,26 @@
     "ayah": "Ayah",
     "juz": "Juz"
   },
+  "navigation": {
+    "home": "Home",
+    "prayerTimes": "Prayer Times",
+    "quran": "Quran",
+    "worship": "Worship",
+    "goals": "Goals",
+    "reports": "Reports",
+    "settings": "Settings",
+    "more": "More",
+    "adminDashboard": "Dashboard",
+    "seasons": "Seasons",
+    "duas": "Duas",
+    "users": "Users",
+    "reminders": "Reminders"
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "Sorry, the page you are looking for does not exist.",
+    "backHome": "Back to Home"
+  },
   "playground": {
     "primaryEmerald": "Primary — Emerald",
     "accentGold": "Accent — Gold",
