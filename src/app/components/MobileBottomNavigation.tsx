@@ -10,7 +10,8 @@ import {
 } from 'lucide-react';
 import { NavLink } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import { Dialog } from 'radix-ui';
+
+import { Sheet, SheetTrigger, SheetClose, SheetContent, SheetTitle } from '@/shared/ui/sheet';
 
 const mainItems = [
   { to: '/', label: 'home', icon: Home, end: true },
@@ -46,8 +47,8 @@ export default function MobileBottomNavigation() {
         </NavLink>
       ))}
 
-      <Dialog.Root>
-        <Dialog.Trigger asChild>
+      <Sheet>
+        <SheetTrigger asChild>
           <button
             type="button"
             className="text-muted-foreground flex flex-col items-center gap-1 rounded-lg py-2 text-xs"
@@ -55,38 +56,37 @@ export default function MobileBottomNavigation() {
             <Ellipsis size={20} />
             <span>{t('navigation.more')}</span>
           </button>
-        </Dialog.Trigger>
+        </SheetTrigger>
 
-        <Dialog.Portal>
-          <Dialog.Overlay className="fixed inset-0 z-50 bg-black/50" />
+        <SheetContent
+          side="bottom"
+          className="bg-card border-border-subtle max-h-[70dvh] w-full max-w-none overflow-y-auto rounded-t-2xl border-t p-5 pb-8"
+        >
+          <div className="bg-muted-foreground/30 mx-auto mb-4 h-1 w-10 rounded-full" />
 
-          <Dialog.Content className="bg-card border-border-subtle fixed inset-x-0 bottom-0 z-50 max-h-[70dvh] w-full overflow-y-auto rounded-t-2xl border-t p-5 pb-8">
-            <div className="bg-muted-foreground/30 mx-auto mb-4 h-1 w-10 rounded-full" />
+          <SheetTitle className="mb-5 text-lg font-bold">{t('navigation.more')}</SheetTitle>
 
-            <Dialog.Title className="mb-5 text-lg font-bold">{t('navigation.more')}</Dialog.Title>
-
-            <nav className="flex flex-col gap-2">
-              {moreItems.map(({ to, label, icon: Icon }) => (
-                <Dialog.Close asChild key={to}>
-                  <NavLink
-                    to={to}
-                    className={({ isActive }) =>
-                      `grid w-full grid-cols-[20px_1fr] items-center gap-3 rounded-xl px-4 py-3 text-start transition-colors ${
-                        isActive
-                          ? 'bg-primary-900 text-gold-400'
-                          : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
-                      }`
-                    }
-                  >
-                    <Icon size={20} />
-                    <span>{t(`navigation.${label}`)}</span>
-                  </NavLink>
-                </Dialog.Close>
-              ))}
-            </nav>
-          </Dialog.Content>
-        </Dialog.Portal>
-      </Dialog.Root>
+          <nav className="flex flex-col gap-2">
+            {moreItems.map(({ to, label, icon: Icon }) => (
+              <SheetClose asChild key={to}>
+                <NavLink
+                  to={to}
+                  className={({ isActive }) =>
+                    `grid w-full grid-cols-[20px_1fr] items-center gap-3 rounded-xl px-4 py-3 text-start transition-colors ${
+                      isActive
+                        ? 'bg-primary-900 text-gold-400'
+                        : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
+                    }`
+                  }
+                >
+                  <Icon size={20} />
+                  <span>{t(`navigation.${label}`)}</span>
+                </NavLink>
+              </SheetClose>
+            ))}
+          </nav>
+        </SheetContent>
+      </Sheet>
     </nav>
   );
 }

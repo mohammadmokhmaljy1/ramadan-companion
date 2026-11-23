@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { Outlet } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { Menu } from 'lucide-react';
-import { Dialog } from 'radix-ui';
 
 import AdminNavigation from '@/app/components/AdminNavigation';
 import { LanguageSwitcher } from '@/shared/components/LanguageSwitcher';
+import { Sheet, SheetTrigger, SheetContent, SheetTitle } from '@/shared/ui/sheet';
 
 export default function AdminLayout() {
   const { t } = useTranslation();
@@ -24,8 +24,8 @@ export default function AdminLayout() {
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="border-border-subtle flex items-center justify-between border-b p-4">
           {/* Mobile Menu */}
-          <Dialog.Root open={menuOpen} onOpenChange={setMenuOpen}>
-            <Dialog.Trigger asChild>
+          <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
+            <SheetTrigger asChild>
               <button
                 type="button"
                 className="text-foreground hover:bg-secondary rounded-lg p-2 md:hidden"
@@ -33,20 +33,19 @@ export default function AdminLayout() {
               >
                 <Menu size={22} />
               </button>
-            </Dialog.Trigger>
+            </SheetTrigger>
 
-            <Dialog.Portal>
-              <Dialog.Overlay className="fixed inset-0 z-50 bg-black/50 md:hidden" />
+            <SheetContent
+              side="right"
+              className="bg-card border-border-subtle w-72 border-e p-4 md:hidden"
+            >
+              <SheetTitle className="text-gold-400 mb-8 text-xl font-bold">
+                {t('navigation.adminDashboard')}
+              </SheetTitle>
 
-              <Dialog.Content className="bg-card border-border-subtle fixed inset-y-0 z-50 w-72 border-e p-4 md:hidden">
-                <Dialog.Title className="text-gold-400 mb-8 text-xl font-bold">
-                  {t('navigation.adminDashboard')}
-                </Dialog.Title>
-
-                <AdminNavigation onNavigate={() => setMenuOpen(false)} />
-              </Dialog.Content>
-            </Dialog.Portal>
-          </Dialog.Root>
+              <AdminNavigation onNavigate={() => setMenuOpen(false)} />
+            </SheetContent>
+          </Sheet>
 
           <LanguageSwitcher />
         </header>
