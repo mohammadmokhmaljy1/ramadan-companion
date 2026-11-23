@@ -43,7 +43,7 @@ export default function AdminLayout() {
                   {t('navigation.adminDashboard')}
                 </Dialog.Title>
 
-                <AdminNavigation />
+                <AdminNavigation onNavigate={() => setMenuOpen(false)} />
               </Dialog.Content>
             </Dialog.Portal>
           </Dialog.Root>

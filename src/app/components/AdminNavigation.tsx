@@ -1,31 +1,42 @@
-import { Outlet } from 'react-router';
+import { LayoutDashboard, CalendarRange, HandHeart, Users, BellRing } from 'lucide-react';
+import { NavLink } from 'react-router';
 import { useTranslation } from 'react-i18next';
 
-import AdminNavigation from '@/app/components/AdminNavigation';
-import { LanguageSwitcher } from '@/shared/components/LanguageSwitcher';
+const adminItems = [
+  { to: '/admin', label: 'adminDashboard', icon: LayoutDashboard, end: true },
+  { to: '/admin/seasons', label: 'seasons', icon: CalendarRange, end: false },
+  { to: '/admin/duas', label: 'duas', icon: HandHeart, end: false },
+  { to: '/admin/users', label: 'users', icon: Users, end: false },
+  { to: '/admin/reminders', label: 'reminders', icon: BellRing, end: false },
+] as const;
 
-export default function AdminLayout() {
+interface AdminNavigationProps {
+  onNavigate?: () => void;
+}
+
+export default function AdminNavigation({ onNavigate }: AdminNavigationProps) {
   const { t } = useTranslation();
 
   return (
-    <div className="bg-background text-foreground flex min-h-screen">
-      {/* Admin Sidebar */}
-      <aside className="border-border-subtle bg-card hidden w-64 shrink-0 border-e p-4 md:block">
-        <h1 className="text-gold-400 mb-8 text-xl font-bold">{t('navigation.adminDashboard')}</h1>
-
-        <AdminNavigation />
-      </aside>
-
-      {/* Admin Content */}
-      <div className="flex min-w-0 flex-1 flex-col">
-        <header className="border-border-subtle flex items-center justify-end border-b p-4">
-          <LanguageSwitcher />
-        </header>
-
-        <main className="min-w-0 flex-1 p-4 md:p-8">
-          <Outlet />
-        </main>
-      </div>
-    </div>
+    <nav className="space-y-2">
+      {adminItems.map(({ to, label, icon: Icon, end }) => (
+        <NavLink
+          key={to}
+          to={to}
+          end={end}
+          onClick={onNavigate}
+          className={({ isActive }) =>
+            `flex items-center gap-3 rounded-lg px-3 py-3 transition-colors ${
+              isActive
+                ? 'bg-primary-900 text-gold-400'
+                : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
+            }`
+          }
+        >
+          <Icon size={20} />
+          <span>{t(`navigation.${label}`)}</span>
+        </NavLink>
+      ))}
+    </nav>
   );
 }

@@ -124,6 +124,14 @@ export const router = createBrowserRouter([
     ],
   },
 
+  // Design playground (task 7)
+  {
+    path: '/playground',
+    lazy: async () => ({
+      Component: (await import('@/app/Playground')).Playground,
+    }),
+  },
+
   // Not Found Route
   {
     path: '*',
