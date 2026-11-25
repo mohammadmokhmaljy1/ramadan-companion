@@ -1,8 +1,19 @@
-import axios from 'axios';
+import axios, { type InternalAxiosRequestConfig } from 'axios';
 
 import i18n from '@/shared/i18n/i18n';
 import { ApiError } from '@/shared/api/api-error';
-import type { ApiErrorBody } from '@/shared/types/api';
+import { clearAccessToken, getAccessToken, setAccessToken } from '@/shared/api/token';
+import type { ApiEnvelope, ApiErrorBody } from '@/shared/types/api';
+
+interface RetryableRequestConfig extends InternalAxiosRequestConfig {
+  _retry?: boolean;
+}
+
+interface RefreshResponse {
+  accessToken: string;
+  expiresIn: number;
+  user: unknown;
+}
 
 export const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -18,45 +29,134 @@ function getApiErrorBody(data: unknown): ApiErrorBody | null {
 
   const candidate = isRecord(data.error) ? data.error : data;
 
-  if (typeof candidate.message !== 'string') return null;
+  if (typeof candidate.message !== 'string' || typeof candidate.code !== 'string') {
+    return null;
+  }
 
   return {
     message: candidate.message,
-    code: typeof candidate.code === 'string' ? candidate.code : undefined,
-    details: candidate.details,
+    code: candidate.code,
+    details: Array.isArray(candidate.details) ? candidate.details : undefined,
   };
 }
 
-// Request Interceptor
-axiosInstance.interceptors.request.use((config) => {
-  config.headers.set('Accept-Language', i18n.language);
+function toApiError(error: unknown): ApiError {
+  if (axios.isAxiosError(error)) {
+    const status = error.response?.status ?? 0;
+    const apiError = getApiErrorBody(error.response?.data);
 
-  // TODO(auth): Add the authentication token header here.
+    return new ApiError(
+      status,
+      apiError?.code ?? null,
+      apiError?.message ?? error.message ?? 'Request failed',
+      apiError?.details,
+    );
+  }
+
+  return new ApiError(0, null, error instanceof Error ? error.message : 'Unknown error');
+}
+
+function getLanguage(): 'ar' | 'en' {
+  const language = i18n.resolvedLanguage ?? i18n.language ?? 'ar';
+
+  return language.startsWith('en') ? 'en' : 'ar';
+}
+
+axiosInstance.interceptors.request.use((config) => {
+  config.headers.set('Accept-Language', getLanguage());
+
+  const token = getAccessToken();
+
+  if (token) {
+    config.headers.set('Authorization', `Bearer ${token}`);
+  } else {
+    config.headers.delete('Authorization');
+  }
 
   return config;
 });
 
-// Response Interceptor
+let refreshPromise: Promise<string> | null = null;
+
+async function performRefresh(): Promise<string> {
+  const baseURL = axiosInstance.defaults.baseURL ?? '';
+  const refreshUrl = `${baseURL.replace(/\/$/, '')}/auth/refresh`;
+
+  const response = await axios.post<ApiEnvelope<RefreshResponse>>(refreshUrl, undefined, {
+    withCredentials: true,
+    headers: {
+      'Accept-Language': getLanguage(),
+    },
+  });
+
+  const payload = response.data.data;
+
+  if (!payload?.accessToken) {
+    throw new Error('Refresh response did not contain an access token');
+  }
+
+  setAccessToken(payload.accessToken);
+
+  return payload.accessToken;
+}
+
+export async function refreshSession(): Promise<string> {
+  if (!refreshPromise) {
+    refreshPromise = performRefresh().finally(() => {
+      refreshPromise = null;
+    });
+  }
+
+  return refreshPromise;
+}
+
+/**
+ * Call once during application startup to restore the session
+ * using the httpOnly refresh cookie.
+ */
+export async function restoreSession(): Promise<boolean> {
+  try {
+    await refreshSession();
+    return true;
+  } catch {
+    clearAccessToken();
+    return false;
+  }
+}
+
 axiosInstance.interceptors.response.use(
   (response) => response,
-  (error: unknown) => {
-    if (axios.isAxiosError(error)) {
-      const status = error.response?.status ?? 0;
-      const responseData: unknown = error.response?.data;
-      const apiError = getApiErrorBody(responseData);
-
-      return Promise.reject(
-        new ApiError(
-          status,
-          apiError?.code ?? null,
-          apiError?.message || error.message || 'Request failed',
-          apiError?.details,
-        ),
-      );
+  async (error: unknown) => {
+    if (!axios.isAxiosError(error)) {
+      return Promise.reject(toApiError(error));
     }
 
-    return Promise.reject(
-      new ApiError(0, null, error instanceof Error ? error.message : 'Unknown error'),
-    );
+    const originalRequest = error.config as RetryableRequestConfig | undefined;
+    const apiError = toApiError(error);
+
+    if (
+      error.response?.status !== 401 ||
+      apiError.code !== 'UNAUTHORIZED' ||
+      !originalRequest ||
+      originalRequest._retry ||
+      originalRequest.url?.includes('/auth/refresh') ||
+      originalRequest.url?.includes('/auth/login') ||
+      originalRequest.url?.includes('/auth/register')
+    ) {
+      return Promise.reject(apiError);
+    }
+
+    originalRequest._retry = true;
+
+    try {
+      const newAccessToken = await refreshSession();
+
+      originalRequest.headers.set('Authorization', `Bearer ${newAccessToken}`);
+
+      return axiosInstance(originalRequest);
+    } catch {
+      clearAccessToken();
+      return Promise.reject(apiError);
+    }
   },
 );
