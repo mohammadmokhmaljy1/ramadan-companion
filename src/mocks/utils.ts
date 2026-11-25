@@ -1,4 +1,4 @@
-import type { ApiEnvelope, PageMeta } from '@/shared/types/api';
+import type { ApiEnvelope, ApiErrorDetail, PageMeta } from '@/shared/types/api';
 
 export function ok<T>(data: T, meta?: PageMeta): ApiEnvelope<T> {
   return {
@@ -9,7 +9,12 @@ export function ok<T>(data: T, meta?: PageMeta): ApiEnvelope<T> {
   };
 }
 
-export function fail(status: number, code: string, message: string) {
+export function fail(
+  status: number,
+  code: string,
+  message: string,
+  details?: ApiErrorDetail[],
+) {
   return {
     status,
     body: {
@@ -19,6 +24,7 @@ export function fail(status: number, code: string, message: string) {
       error: {
         code,
         message,
+        ...(details ? { details } : {}),
       },
     },
   };

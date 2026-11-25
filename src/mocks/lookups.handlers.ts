@@ -1,24 +1,28 @@
 import { delay, http, HttpResponse } from 'msw';
 
-import { cities, countries, prayerMethods } from './db';
+import {
+  calculationMethods,
+  fastMissReasons,
+  reminderTypes,
+} from './db';
 import { ok } from './utils';
 
 export const lookupsHandlers = [
-  http.get('/lookups/countries', async () => {
+  http.get('/lookups/calculation-methods', async () => {
     await delay(400);
 
-    return HttpResponse.json(ok(countries));
+    return HttpResponse.json(ok(calculationMethods));
   }),
 
-  http.get('/lookups/cities', async () => {
+  http.get('/lookups/fast-miss-reasons', async () => {
     await delay(400);
 
-    return HttpResponse.json(ok(cities));
+    return HttpResponse.json(ok(fastMissReasons));
   }),
 
-  http.get('/lookups/prayer-methods', async () => {
+  http.get('/lookups/reminder-types', async () => {
     await delay(400);
 
-    return HttpResponse.json(ok(prayerMethods));
+    return HttpResponse.json(ok(reminderTypes));
   }),
 ];
