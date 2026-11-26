@@ -44,6 +44,28 @@
     "description": "Sorry, the page you are looking for does not exist.",
     "backHome": "Back to Home"
   },
+
+  "errors": {
+    "generic": "An unexpected error occurred. Please try again.",
+    "validation": "Please check the entered data.",
+    "unauthorized": "Please log in to continue.",
+    "invalidCredentials": "The email or password is incorrect.",
+    "emailTaken": "This email address is already in use.",
+    "wrongPassword": "The password is incorrect.",
+    "forbidden": "You do not have permission to perform this action.",
+    "notFound": "The requested item was not found.",
+    "onboardingRequired": "Please complete your account setup first.",
+    "noActiveSeason": "There is no active season currently.",
+    "planExists": "A plan already exists.",
+    "invalidPageRange": "The specified page range is invalid.",
+    "seasonOverlap": "The date range overlaps with another season.",
+    "seasonHasData": "This season cannot be modified because it has associated data.",
+    "prayerTimesUnavailable": "Unable to retrieve prayer times.",
+    "tooManyRequests": "Too many requests. Please try again later.",
+    "conflict": "A conflict occurred while processing the request.",
+    "pushNotConfigured": "Push notifications are not configured.",
+    "internal": "A server error occurred. Please try again later."
+  },
   "playground": {
     "primaryEmerald": "Primary — Emerald",
     "accentGold": "Accent — Gold",
