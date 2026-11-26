@@ -7,8 +7,6 @@ import './index.css';
 
 import { AppProvider } from './app/provider';
 import { router } from './app/router';
-import { AuthProvider } from './features/auth/context/AuthProvider';
-import { restoreSession } from './shared/api/client';
 
 async function enableMocking() {
   if (import.meta.env.DEV && import.meta.env.VITE_ENABLE_MOCKS === 'true') {
@@ -21,15 +19,11 @@ async function enableMocking() {
 async function bootstrap() {
   await enableMocking();
 
-  const initialUser = await restoreSession();
-
   createRoot(document.getElementById('root')!).render(
     <StrictMode>
-      <AuthProvider initialUser={initialUser}>
-        <AppProvider>
-          <RouterProvider router={router} />
-        </AppProvider>
-      </AuthProvider>
+      <AppProvider>
+        <RouterProvider router={router} />
+      </AppProvider>
     </StrictMode>,
   );
 }

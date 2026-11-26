@@ -64,7 +64,10 @@
     "tooManyRequests": "Too many requests. Please try again later.",
     "conflict": "A conflict occurred while processing the request.",
     "pushNotConfigured": "Push notifications are not configured.",
-    "internal": "A server error occurred. Please try again later."
+    "internal": "A server error occurred. Please try again later.",
+    "errorTitle": "Something went wrong",
+    "errorDescription": "Unable to display this page. Please try again.",
+    "retry": "Try again"
   },
   "playground": {
     "primaryEmerald": "Primary — Emerald",

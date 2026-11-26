@@ -24,13 +24,7 @@ class AppErrorBoundary extends Component<PropsWithChildren, { hasError: boolean 
 
   render() {
     if (this.state.hasError) {
-      return (
-        <ErrorState
-          title="حدث خطأ غير متوقع"
-          description="تعذر عرض الصفحة. يرجى المحاولة مرة أخرى."
-          onRetry={this.handleRetry}
-        />
-      );
+      return <ErrorState onRetry={this.handleRetry} />;
     }
 
     return this.props.children;
