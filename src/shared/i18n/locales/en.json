@@ -15,7 +15,27 @@
     "register": "Create Account",
     "email": "Email",
     "password": "Password",
-    "welcome": "Welcome Back"
+    "welcome": "Welcome Back",
+    "fullName": "Full Name",
+    "confirmPassword": "Confirm Password",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "registerSubtitle": "Create your account and start your journey with us",
+    "registering": "Creating account...",
+    "validation": {
+      "fullNameRequired": "Full name is required.",
+      "fullNameMin": "Name must be at least 2 characters.",
+      "fullNameMax": "Name must be at most 100 characters.",
+      "emailRequired": "Email is required.",
+      "emailInvalid": "Please enter a valid email address.",
+      "passwordRequired": "Password is required.",
+      "passwordMin": "Password must be at least 8 characters.",
+      "passwordMax": "Password must be at most 64 characters.",
+      "passwordLetter": "Password must contain at least one letter.",
+      "passwordNumber": "Password must contain at least one number.",
+      "confirmPasswordRequired": "Please confirm your password.",
+      "confirmPasswordMismatch": "Passwords do not match."
+    }
   },
   "quran": {
     "title": "The Holy Quran",

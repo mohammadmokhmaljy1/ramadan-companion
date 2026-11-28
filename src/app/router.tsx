@@ -16,18 +16,20 @@ export const router = createBrowserRouter([
         }),
       },
       {
-        path: '/register',
-        lazy: async () => ({
-          Component: (await import('@/app/pages/auth/RegisterPage')).default,
-        }),
-      },
-      {
         path: '/onboarding',
         lazy: async () => ({
           Component: (await import('@/app/pages/auth/OnboardingPage')).default,
         }),
       },
     ],
+  },
+
+  // Register Route - Full Screen Layout
+  {
+    path: '/register',
+    lazy: async () => ({
+      Component: (await import('@/app/pages/auth/RegisterPage')).default,
+    }),
   },
 
   // Main Application Routes
