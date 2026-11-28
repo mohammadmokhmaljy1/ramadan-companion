@@ -146,6 +146,7 @@ axiosInstance.interceptors.response.use(
       return Promise.reject(apiError);
     }
 
+    const hadActiveSession = Boolean(getAccessToken());
     originalRequest._retry = true;
 
     try {
@@ -156,6 +157,11 @@ axiosInstance.interceptors.response.use(
       return axiosInstance(originalRequest);
     } catch {
       clearAccessToken();
+
+      if (hadActiveSession) {
+        window.dispatchEvent(new Event('auth:session-expired'));
+      }
+
       return Promise.reject(apiError);
     }
   },
