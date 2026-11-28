@@ -5,8 +5,8 @@ import { RouterProvider } from 'react-router';
 import './shared/i18n/i18n';
 import './index.css';
 
+import { AppProvider } from './app/provider';
 import { router } from './app/router';
-import { Toaster } from '@/shared/ui/sonner';
 
 async function enableMocking() {
   if (import.meta.env.DEV && import.meta.env.VITE_ENABLE_MOCKS === 'true') {
@@ -16,11 +16,16 @@ async function enableMocking() {
   }
 }
 
-enableMocking().then(() => {
+async function bootstrap() {
+  await enableMocking();
+
   createRoot(document.getElementById('root')!).render(
     <StrictMode>
-      <RouterProvider router={router} />
-      <Toaster />
+      <AppProvider>
+        <RouterProvider router={router} />
+      </AppProvider>
     </StrictMode>,
   );
-});
+}
+
+void bootstrap();

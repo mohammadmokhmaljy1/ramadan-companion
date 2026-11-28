@@ -1,4 +1,6 @@
 import { AlertCircle } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+
 import { Button } from '@/shared/ui/button';
 
 type ErrorStateProps = {
@@ -7,24 +9,24 @@ type ErrorStateProps = {
   onRetry: () => void;
 };
 
-export function ErrorState({
-  title = 'حدث خطأ',
-  description = 'تعذر تحميل البيانات. يرجى المحاولة مرة أخرى.',
-  onRetry,
-}: ErrorStateProps) {
+export function ErrorState({ title, description, onRetry }: ErrorStateProps) {
+  const { t } = useTranslation();
+
   return (
-    <div className="border-border bg-card flex flex-col items-center justify-center gap-4 rounded-xl border p-8 text-center">
+    <div className="bg-card border-border mx-auto flex w-full max-w-md flex-col items-center justify-center gap-4 rounded-xl border p-8 text-center">
       <div className="bg-destructive/10 text-destructive flex size-14 items-center justify-center rounded-full">
         <AlertCircle className="size-7" />
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-foreground text-lg font-semibold">{title}</h3>
-        <p className="text-muted-foreground max-w-md text-sm">{description}</p>
+        <h3 className="text-foreground text-lg font-semibold">{title ?? t('errors.errorTitle')}</h3>
+        <p className="text-muted-foreground text-sm">
+          {description ?? t('errors.errorDescription')}
+        </p>
       </div>
 
       <Button variant="outline" onClick={onRetry}>
-        Try again
+        {t('errors.retry')}
       </Button>
     </div>
   );
