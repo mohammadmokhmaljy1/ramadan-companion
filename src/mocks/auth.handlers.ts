@@ -1,6 +1,13 @@
 import { delay, http, HttpResponse } from 'msw';
 
-import { refreshTokens, sessions, users } from './db';
+import {
+  clearMockRefreshSession,
+  hasRefreshCookie,
+  refreshTokens,
+  sessions,
+  setMockRefreshSession,
+  users,
+} from './db';
 import { fail, ok } from './utils';
 
 const ACCESS_TOKEN_EXPIRY = 900;
@@ -48,10 +55,7 @@ export function getAuthenticatedUser(request: Request) {
 
 function storeAccessToken(token: string, userId: number) {
   sessions.set(token, userId);
-  accessTokenExpirations.set(
-    token,
-    Date.now() + ACCESS_TOKEN_EXPIRY * 1000,
-  );
+  accessTokenExpirations.set(token, Date.now() + ACCESS_TOKEN_EXPIRY * 1000);
 }
 
 function isRateLimited(email: string) {
@@ -169,7 +173,7 @@ export const authHandlers = [
     const refreshToken = createToken();
 
     storeAccessToken(accessToken, user.id);
-    refreshTokens.set(refreshToken, user.id);
+    setMockRefreshSession(refreshToken, user.id);
 
     return HttpResponse.json(
       ok({
@@ -213,11 +217,7 @@ export const authHandlers = [
     );
 
     if (!user) {
-      const response = fail(
-        401,
-        'INVALID_CREDENTIALS',
-        'Invalid email or password',
-      );
+      const response = fail(401, 'INVALID_CREDENTIALS', 'Invalid email or password');
 
       return HttpResponse.json(response.body, {
         status: response.status,
@@ -230,7 +230,7 @@ export const authHandlers = [
     const refreshToken = createToken();
 
     storeAccessToken(accessToken, user.id);
-    refreshTokens.set(refreshToken, user.id);
+    setMockRefreshSession(refreshToken, user.id);
 
     return HttpResponse.json(
       ok({
@@ -246,17 +246,19 @@ export const authHandlers = [
     );
   }),
 
-  http.post('/auth/refresh', async ({ request }) => {
+  http.post('/auth/refresh', async ({ cookies }) => {
     await delay(400);
 
-    const refreshToken = getRefreshToken(request);
-    const userId = refreshToken
-      ? refreshTokens.get(refreshToken)
-      : undefined;
+    const cookieToken = cookies[REFRESH_COOKIE_NAME];
+
+    const storedRefreshToken =
+      cookieToken ?? (hasRefreshCookie ? Array.from(refreshTokens.keys()).pop() : undefined);
+
+    const userId = storedRefreshToken ? refreshTokens.get(storedRefreshToken) : undefined;
 
     const user = users.find((item) => item.id === userId);
 
-    if (!user || !refreshToken) {
+    if (!hasRefreshCookie || !user || !storedRefreshToken) {
       return unauthorized();
     }
 
@@ -289,6 +291,8 @@ export const authHandlers = [
     if (refreshToken) {
       refreshTokens.delete(refreshToken);
     }
+
+    clearMockRefreshSession();
 
     return new HttpResponse(null, {
       status: 204,

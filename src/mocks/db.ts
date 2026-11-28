@@ -40,8 +40,70 @@ export const users: MockUser[] = [
 // Access Token -> User ID
 export const sessions = new Map<string, number>();
 
+// Restore the fake refresh session when MSW starts after a page reload.
+const MOCK_REFRESH_SESSION_KEY = 'mock-refresh-session';
+
+interface MockRefreshSession {
+  token: string;
+  userId: number;
+}
+
+function readMockRefreshSession(): MockRefreshSession | null {
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
+  try {
+    const storedSession = window.sessionStorage.getItem(MOCK_REFRESH_SESSION_KEY);
+
+    if (!storedSession) {
+      return null;
+    }
+
+    const session = JSON.parse(storedSession) as MockRefreshSession;
+
+    if (typeof session.token !== 'string' || typeof session.userId !== 'number') {
+      return null;
+    }
+
+    return session;
+  } catch {
+    return null;
+  }
+}
+
+const initialRefreshSession = readMockRefreshSession();
+
 // Refresh Token -> User ID
-export const refreshTokens = new Map<string, number>();
+export const refreshTokens = new Map<string, number>(
+  initialRefreshSession ? [[initialRefreshSession.token, initialRefreshSession.userId]] : [],
+);
+
+// Fake Refresh Cookie flag for MSW
+export let hasRefreshCookie = Boolean(initialRefreshSession);
+
+export function setMockRefreshSession(token: string, userId: number) {
+  refreshTokens.clear();
+  refreshTokens.set(token, userId);
+  hasRefreshCookie = true;
+
+  try {
+    window.sessionStorage.setItem(MOCK_REFRESH_SESSION_KEY, JSON.stringify({ token, userId }));
+  } catch {
+    // Keep the mock session in memory if storage is unavailable.
+  }
+}
+
+export function clearMockRefreshSession() {
+  refreshTokens.clear();
+  hasRefreshCookie = false;
+
+  try {
+    window.sessionStorage.removeItem(MOCK_REFRESH_SESSION_KEY);
+  } catch {
+    // Ignore storage errors.
+  }
+}
 
 export const calculationMethods = [
   { id: 1, name: 'Muslim World League' },

@@ -2,6 +2,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Component, useEffect, useState, type ErrorInfo, type PropsWithChildren } from 'react';
 import { useTranslation } from 'react-i18next';
+import { AuthProvider } from '@/features/auth/context/AuthProvider';
 
 import { queryClient } from '@/shared/api/query-client';
 import { ErrorState } from '@/shared/components/ErrorState';
@@ -55,7 +56,9 @@ export function AppProvider({ children }: PropsWithChildren) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AppErrorBoundary>{children}</AppErrorBoundary>
+      <AuthProvider>
+        <AppErrorBoundary>{children}</AppErrorBoundary>
+      </AuthProvider>
 
       <Toaster dir={direction} position={position} />
 
