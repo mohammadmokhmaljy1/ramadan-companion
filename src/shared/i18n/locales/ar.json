@@ -15,7 +15,27 @@
     "register": "إنشاء حساب",
     "email": "البريد الإلكتروني",
     "password": "كلمة المرور",
-    "welcome": "مرحباً بعودتك"
+    "welcome": "مرحباً بعودتك",
+    "fullName": "الاسم الكامل",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "showPassword": "إظهار كلمة المرور",
+    "hidePassword": "إخفاء كلمة المرور",
+    "registerSubtitle": "أنشئ حسابك وابدأ رحلتك معنا",
+    "registering": "جارٍ إنشاء الحساب...",
+    "validation": {
+      "fullNameRequired": "الاسم مطلوب.",
+      "fullNameMin": "يجب ألا يقل الاسم عن حرفين.",
+      "fullNameMax": "يجب ألا يزيد الاسم عن 100 حرف.",
+      "emailRequired": "البريد الإلكتروني مطلوب.",
+      "emailInvalid": "يرجى إدخال بريد إلكتروني صالح.",
+      "passwordRequired": "كلمة المرور مطلوبة.",
+      "passwordMin": "يجب ألا تقل كلمة المرور عن 8 أحرف.",
+      "passwordMax": "يجب ألا تزيد كلمة المرور عن 64 حرفاً.",
+      "passwordLetter": "يجب أن تحتوي كلمة المرور على حرف واحد على الأقل.",
+      "passwordNumber": "يجب أن تحتوي كلمة المرور على رقم واحد على الأقل.",
+      "confirmPasswordRequired": "يرجى تأكيد كلمة المرور.",
+      "confirmPasswordMismatch": "كلمتا المرور غير متطابقتين."
+    }
   },
   "quran": {
     "title": "القرآن الكريم",

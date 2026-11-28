@@ -2,7 +2,7 @@ import { useEffect, useState, type PropsWithChildren } from 'react';
 
 import { AuthContext, type AuthStatus } from '@/features/auth/context/auth-context';
 import { authApi } from '@/features/auth/api';
-import type { User } from '@/features/auth/types';
+import type { AuthResponse, User } from '@/features/auth/types';
 import { clearAccessToken, setAccessToken } from '@/shared/api/token';
 import { queryClient } from '@/shared/api/query-client';
 import { restoreSession } from '@/shared/api/client';
@@ -79,6 +79,12 @@ export function AuthProvider({ children }: PropsWithChildren) {
     setStatus('authenticated');
   }
 
+  function establishSession(response: AuthResponse) {
+    setAccessToken(response.accessToken);
+    setUser(response.user);
+    setStatus('authenticated');
+  }
+
   async function logout() {
     try {
       await authApi.logout();
@@ -99,6 +105,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
         status,
         login,
         logout,
+        establishSession,
       }}
     >
       {children}
